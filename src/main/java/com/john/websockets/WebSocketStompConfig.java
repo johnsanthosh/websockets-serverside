@@ -9,7 +9,6 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketStompConfig extends AbstractWebSocketMessageBrokerConfigurer {
-
 /**
  * Registers the stomp endpoints.
  * @param registry
@@ -34,5 +33,5 @@ public class WebSocketStompConfig extends AbstractWebSocketMessageBrokerConfigur
     // to the AnnotationMethodMessageHandler i.e methods with @MessageMapping or @SubscribeMapping in the Controller.
     registry.setApplicationDestinationPrefixes("/app");
   }
-  
+
 }

@@ -2,6 +2,7 @@ package com.john.websockets;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -38,6 +39,22 @@ public class MarcoController {
   @SubscribeMapping("/broadcastMarco")
   @SendTo("/topic/broadcastPolo")
   public Shout handleBroadcastShout(Shout incoming) {
+    logger.info("Received  broadcast message: " + incoming.getMessage());
+
+    Shout outgoing = new Shout();
+    outgoing.setMessage("Broadcast Polo!");
+
+    return outgoing;
+  }
+
+  /**
+   * Listens to messages sent to /app/broadcastMarco/{room} and sends messages to /topic/broadcastPolo/{room}.
+   * @param incoming
+   * @return
+   */
+  @SubscribeMapping("/broadcastMarco/{room}")
+  @SendTo("/topic/broadcastPolo/{room}")
+  public Shout handleBroadcastShoutToRoom(@DestinationVariable int room, Shout incoming) {
     logger.info("Received  broadcast message: " + incoming.getMessage());
 
     Shout outgoing = new Shout();

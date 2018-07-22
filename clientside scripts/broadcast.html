@@ -15,13 +15,9 @@
 
       stomp.connect('guest', 'guest', function(frame) {
         console.log('----    Established  ----');
-		stomp.subscribe("/topic/broadcastPolo", handlePolo);
+		stomp.subscribe("/topic/broadcastPolo/1", handlePolo);
         sayBroadcastMarco();
       });
-      
-      function handleOneTime(message) {
-        console.log('Received: ', message);
-      }
 
       function handlePolo(message) {
         console.log('Received broadcast: ', message);
@@ -37,7 +33,7 @@
 
       function sayBroadcastMarco() {
         console.log('Sending Broadcast Marco!');
-        stomp.send("/app/broadcastMarco", {}, 
+        stomp.send("/app/broadcastMarco/1", {}, 
             JSON.stringify({ 'message': 'Broadcast Marco!' }));
         $('#output').append("<b>Send: Broadcast Marco!</b><br/>")
       }
